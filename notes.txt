@@ -1,0 +1,3 @@
+- using express, follow outline of locallibrary example.
+    - one view can run authorization code and then redirect to the main page
+    

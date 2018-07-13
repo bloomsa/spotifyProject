@@ -1,0 +1,6 @@
+to do
+
+    allow users to log in and authenticate the app on their account
+    use spotify api to access now playing information
+        use that info to access wikipedia details on given song/artist
+    display info nicely, perhaps with a theme similar to spotify's green and grey/black
