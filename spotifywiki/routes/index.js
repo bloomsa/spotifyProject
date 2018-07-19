@@ -3,15 +3,19 @@ var request = require('request'); // "Request" library
 var router = express.Router();
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var PropertiesReader = require('properties-reader');
+var properties = PropertiesReader('client.properties');
 
 //  most of this was copied from the example, not working yet. gonna be messing 
 //  around with it
 
 // update: not crashing, gonna try redirecting to display user's data
 
-var client_id = 'c40a9f6742b549358d9433068af6a76e'; // Your client id
-var client_secret = '2adc823da40b4445b01268a6e339be0a'; // Your secret
+var client_id = properties.get('client.id'); // Your client id
+var client_secret = properties.get('client.secret'); // Your secret
 var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+
+console.log(client_id);
 
 //  generate random string function used from publically available
 //  source code of spotify web-api-auth-examples in the authorization
