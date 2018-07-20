@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1= user['item']['name']
-    p= user['is_playing']
-    //- p= user['email']
+  h1= user['display_name']
+    p= display['is_playing']
+    p= display['item']['name']
     //- p= playing['item']

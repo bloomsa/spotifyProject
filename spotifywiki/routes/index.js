@@ -94,7 +94,6 @@ router.get('/callback', function (req, res) {
       json: true
     };
 
-
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
@@ -104,22 +103,30 @@ router.get('/callback', function (req, res) {
         // now it fetches this:
         // https://developer.spotify.com/documentation/web-api/reference/player/get-the-users-currently-playing-track/
 
-        var options = {
+        var optionsCurrentlyPlaying = {
           url: 'https://api.spotify.com/v1/me/player/currently-playing',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-        console.log(options);
+
+        //https://api.spotify.com/v1/me
+        var optionsUser = {
+          url: 'https://api.spotify.com/v1/me',
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+
         // use the access token to access the Spotify Web API
-        request.get(options, function (error, response, body) {
-          //Should check for errors before rendering
-          if (body) {
-            console.log("BODY: " + body);
-            res.render('login', { title: 'spotipedia (name in progress)', user: body });//body will be used in login.pug
-          }else{
-            console.log("No songs");
-          }
+        request.get(optionsUser, function (error, response, body) {
+          request.get(optionsCurrentlyPlaying, function (er, resp, bod) {
+            if (bod && body) {
+              res.render('login', { title: 'spotipedia (name in progress)', user: body, display: bod });//body will be used in login.pug
+            }else{
+              //Redirect to Error
+            }
+          })
         });
+
         // we can also pass the token to the browser to make requests from there
         /*
         We can't have redirects here

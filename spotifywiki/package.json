@@ -15,7 +15,8 @@
     "npm": "^6.1.0",
     "properties-reader": "0.0.16",
     "pug": "2.0.0-beta11",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
