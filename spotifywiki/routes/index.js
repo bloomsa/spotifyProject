@@ -61,6 +61,10 @@ router.get('/login', function (req, res, next) {
 });
 
 
+//  localhost:3000/callback is the redirect uri approved 
+//  for my app permissions on spotify, so it will
+//  redirect here after successful (or failed) auth
+
 router.get('/callback', function (req, res) {
 
   // your application requests refresh and access tokens
@@ -96,8 +100,12 @@ router.get('/callback', function (req, res) {
 
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
+        // sam: modified the url to go to the currently playing endpoint
+        // now it fetches this:
+        // https://developer.spotify.com/documentation/web-api/reference/player/get-the-users-currently-playing-track/
+
+          var options = {
+          url: 'https://api.spotify.com/v1/me/player/currently-playing',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
@@ -105,7 +113,7 @@ router.get('/callback', function (req, res) {
         request.get(options, function(error, response, body) {
           //Should check for errors before rendering
           console.log(body);
-          res.render('login', { title: 'spotipedia (name in progress)', item: body});//item will be used in login.pug
+          res.render('login', { title: 'spotipedia (name in progress)', user: body});//item will be used in login.pug
         });
         // we can also pass the token to the browser to make requests from there
         /*
