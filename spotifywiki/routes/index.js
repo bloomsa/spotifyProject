@@ -94,7 +94,7 @@ router.get('/callback', function (req, res) {
       json: true
     };
 
-    
+
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
@@ -104,16 +104,21 @@ router.get('/callback', function (req, res) {
         // now it fetches this:
         // https://developer.spotify.com/documentation/web-api/reference/player/get-the-users-currently-playing-track/
 
-          var options = {
+        var options = {
           url: 'https://api.spotify.com/v1/me/player/currently-playing',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
+        console.log(options);
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
+        request.get(options, function (error, response, body) {
           //Should check for errors before rendering
-          console.log(body);
-          res.render('login', { title: 'spotipedia (name in progress)', user: body});//item will be used in login.pug
+          if (body) {
+            console.log("BODY: " + body);
+            res.render('login', { title: 'spotipedia (name in progress)', user: body });//body will be used in login.pug
+          }else{
+            console.log("No songs");
+          }
         });
         // we can also pass the token to the browser to make requests from there
         /*
@@ -136,7 +141,7 @@ router.get('/callback', function (req, res) {
   }
 });
 
-router.get('/refresh_token', function(req, res) {
+router.get('/refresh_token', function (req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
@@ -150,7 +155,7 @@ router.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       res.send({
