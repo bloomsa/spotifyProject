@@ -103,25 +103,29 @@ router.get('/callback', function (req, res) {
         };
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          //Should check for errors before rendering
           console.log(body);
+          res.render('login', { title: 'display_name', item: body});//item will be used in login.pug
         });
-
-        console.log("AFTER After");
         // we can also pass the token to the browser to make requests from there
+        /*
+        We can't have redirects here
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
+          */
       } else {
+        /*
         res.redirect('/#' +
           querystring.stringify({
             error: 'invalid_token'
           }));
+          */
       }
     });
   }
-
 });
 
 router.get('/refresh_token', function(req, res) {
