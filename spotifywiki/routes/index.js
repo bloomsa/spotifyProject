@@ -105,7 +105,7 @@ router.get('/callback', function (req, res) {
         request.get(options, function(error, response, body) {
           //Should check for errors before rendering
           console.log(body);
-          res.render('login', { title: 'display_name', item: body});//item will be used in login.pug
+          res.render('login', { title: 'spotipedia (name in progress)', item: body});//item will be used in login.pug
         });
         // we can also pass the token to the browser to make requests from there
         /*

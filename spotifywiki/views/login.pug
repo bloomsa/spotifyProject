@@ -1,4 +1,7 @@
 extends layout
 
 block content
-  h1= item['display_name']//item is retireved from render call
+  h1= item['display_name']
+    p= item['id']
+    p= item['email']
+    p= item['item']
