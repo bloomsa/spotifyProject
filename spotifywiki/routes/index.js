@@ -25,7 +25,7 @@ console.log(client_id);
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
+var generateRandomString = function (length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -38,11 +38,11 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'spotify-wiki web app' });
 });
 
-router.get('/login', function(req, res, next) {
+router.get('/login', function (req, res, next) {
   // i think generating a cookie to be stored with the site for future log ins
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -60,7 +60,8 @@ router.get('/login', function(req, res, next) {
   // res.render('login');
 });
 
-router.get('/callback', function(req, res) {
+
+router.get('/callback', function (req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -89,24 +90,23 @@ router.get('/callback', function(req, res) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    
+    request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
-
+          refresh_token = body.refresh_token;
         var options = {
           url: 'https://api.spotify.com/v1/me',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-        //the following is what displays the user info on the console
           console.log(body);
         });
 
+        console.log("AFTER After");
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
           querystring.stringify({
@@ -121,7 +121,32 @@ router.get('/callback', function(req, res) {
       }
     });
   }
-  res.render('login', { title: 'display_name' });
- });
+
+});
+
+router.get('/refresh_token', function(req, res) {
+
+  // requesting access token from refresh token
+  var refresh_token = req.query.refresh_token;
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    form: {
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var access_token = body.access_token;
+      res.send({
+        'access_token': access_token
+      });
+    }
+  });
+});
+
 
 module.exports = router;
