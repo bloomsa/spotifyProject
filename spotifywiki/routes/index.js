@@ -1,5 +1,5 @@
 var express = require('express');
-var request = require('request'); // "Request" library
+var request = require('request-promise'); // "Request" library
 var router = express.Router();
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
@@ -64,7 +64,9 @@ router.get('/login', function (req, res, next) {
 //  localhost:3000/callback is the redirect uri approved 
 //  for my app permissions on spotify, so it will
 //  redirect here after successful (or failed) auth
-
+function get(error, resposne, body) {
+  return { error, resposne, body };
+}
 router.get('/callback', function (req, res) {
 
   // your application requests refresh and access tokens
@@ -117,6 +119,24 @@ router.get('/callback', function (req, res) {
         };
 
         // use the access token to access the Spotify Web API
+        //Javascript Promises use request-promise
+        //The better way of chaining two calls. Looks here for more detail: https://github.com/request/request-promise
+        //To better understand this look at this small guide: https://scotch.io/tutorials/javascript-promises-for-dummies
+        request.get(optionsUser).then(function (userBody, err) {
+          return userBody;//We need to return the userBody so the next chain can see it
+        }).then(function (userBodyParam) {//The returned value above will be passed into this anonymous function
+          request.get(optionsCurrentlyPlaying).then(function (cBody, err2) {//Inisde of the anonymous function we do our second get request
+            if (cBody) {
+              res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
+            } else {
+              //Render something else
+            }
+          })
+        });
+
+
+        //res.render('login', { title: 'spotipedia (name in progress)', user: userBody, display: displayBody });
+        /*
         request.get(optionsUser, function (error, response, body) {
           request.get(optionsCurrentlyPlaying, function (er, resp, bod) {
             if (bod && body) {
@@ -126,16 +146,7 @@ router.get('/callback', function (req, res) {
             }
           })
         });
-
-        // we can also pass the token to the browser to make requests from there
-        /*
-        We can't have redirects here
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
-          */
+        */
       } else {
         /*
         res.redirect('/#' +
