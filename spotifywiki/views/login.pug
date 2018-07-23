@@ -2,6 +2,6 @@ extends layout
 
 block content
   h1= user['display_name']
-    p= display['is_playing']
-    p= display['item']['name']
+  p= 'currently listening? ' + display['is_playing']
+  p= 'current song: ' + display['item']['name']
     //- p= playing['item']

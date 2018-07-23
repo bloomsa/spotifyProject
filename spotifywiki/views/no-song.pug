@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= user['display_name']
+    p.
+        no song currently playing, please play a song
+        on spotify and try logging in again
+    //- not redirecting propery
+    a(class='button' href='localhost:3000') Log in with Spotify

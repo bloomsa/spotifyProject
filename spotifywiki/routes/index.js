@@ -129,7 +129,7 @@ router.get('/callback', function (req, res) {
             if (cBody) {
               res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
             } else {
-              //Render something else
+              res.render('no-song', {user: userBodyParam});
             }
           })
         });
