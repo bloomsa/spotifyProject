@@ -117,7 +117,7 @@ router.get('/callback', function (req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
+        
         // use the access token to access the Spotify Web API
         //Javascript Promises use request-promise
         //The better way of chaining two calls. Looks here for more detail: https://github.com/request/request-promise
@@ -127,6 +127,8 @@ router.get('/callback', function (req, res) {
         }).then(function (userBodyParam) {//The returned value above will be passed into this anonymous function
           request.get(optionsCurrentlyPlaying).then(function (cBody, err2) {//Inisde of the anonymous function we do our second get request
             if (cBody) {
+              //for testing purposes 
+              console.log(cBody);
               res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
             } else {
               res.render('no-song', {user: userBodyParam});
