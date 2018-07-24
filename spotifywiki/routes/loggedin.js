@@ -6,6 +6,6 @@ var cookieParser = require('cookie-parser');
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('client.properties');
 
-router.get('/', function (req, res, next, body) {
-    res.render('login', {  });
+router.get('/', function (req, res, next) {
+    res.render('login', { name: req.query.user_name });
   });
