@@ -130,7 +130,7 @@ router.get('/callback', function (req, res) {
               //for testing purposes 
               console.log(cBody);
               // res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
-              res.redirect('/login?' + 
+              res.redirect('/loggedin?' + 
                 querystring.stringify ({
                   user_name: userBodyParam['display_name']
                 }));

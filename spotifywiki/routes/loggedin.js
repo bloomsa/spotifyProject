@@ -9,3 +9,5 @@ var properties = PropertiesReader('client.properties');
 router.get('/', function (req, res, next) {
     res.render('login', { name: req.query.user_name });
   });
+
+module.exports = router;
