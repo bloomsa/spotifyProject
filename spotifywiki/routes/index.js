@@ -132,7 +132,9 @@ router.get('/callback', function (req, res) {
               // res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
               res.redirect('/loggedin?' + 
                 querystring.stringify ({
-                  user_name: userBodyParam['display_name']
+                  user_name: userBodyParam['display_name'],
+                  song_name: cBody['item']['name'],
+                  artist: cBody['item']['artists']['name']
                 }));
             } else {
               // res.render('no-song', {user: userBodyParam});
