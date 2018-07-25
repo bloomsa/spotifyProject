@@ -134,7 +134,7 @@ router.get('/callback', function (req, res) {
                 querystring.stringify ({
                   user_name: userBodyParam['display_name'],
                   song_name: cBody['item']['name'],
-                  artist: cBody['item']['artists']['name']
+                  artist: cBody['item']['artists'][0]['name']
                 }));
             } else {
               // res.render('no-song', {user: userBodyParam});
