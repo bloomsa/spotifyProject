@@ -137,7 +137,10 @@ router.get('/callback', function (req, res) {
                   artist: cBody['item']['artists'][0]['name']
                 }));
             } else {
-              // res.render('no-song', {user: userBodyParam});
+              res.redirect('/no-song?' + 
+                querystring.stringify ({
+                  user_name: userBodyParam['display_name']
+                }));
             }
           })
         });
@@ -191,5 +194,9 @@ router.get('/refresh_token', function (req, res) {
   });
 });
 
+
+router.get('/no-song', function(req, res) {
+  res.render('no-song', {user: req.query.user_name});
+});
 
 module.exports = router;

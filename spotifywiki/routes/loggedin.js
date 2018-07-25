@@ -7,7 +7,10 @@ var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('client.properties');
 
 router.get('/', function (req, res, next) {
-    res.render('login', { name: req.query.user_name, song_title: req.query.song_name, artist: req.query.artist});
+    res.render('login', { 
+      name: req.query.user_name, 
+      song_title: req.query.song_name, 
+      artist: req.query.artist});
   });
 
 module.exports = router;
