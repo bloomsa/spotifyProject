@@ -10,7 +10,10 @@ router.get('/', function (req, res, next) {
     res.render('login', { 
       name: req.query.user_name, 
       song_title: req.query.song_name, 
-      artist: req.query.artist});
+      artist: req.query.artist,
+      album: req.query.album
+    });
+      
   });
 
 module.exports = router;
