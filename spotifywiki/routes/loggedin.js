@@ -20,7 +20,7 @@ var properties = PropertiesReader('client.properties');
 // obtained from spotify into the correct format for 
 // requesting through wikipedia rest api
 function stringToWikiFormat(s) {
-  // probably has some edge cases that'll need to be thought of
+  // works correctly, might still have some edge cases i haven't thought of
   s = s.charAt(0).toUpperCase() + s.substr(1); 
 
   for(var i = 1; i < s.length; i++){
@@ -33,10 +33,10 @@ function stringToWikiFormat(s) {
 
 router.get('/', function (req, res, next) {
     res.render('login', { 
-      name: req.query.user_name, 
-      song_title: req.query.song_name, 
-      artist: req.query.artist,
-      album: req.query.album
+      name: stringToWikiFormat(req.query.user_name), 
+      song_title: stringToWikiFormat(req.query.song_name), 
+      artist: stringToWikiFormat(req.query.artist),
+      album: stringToWikiFormat(req.query.album)
     });  
   });
 
