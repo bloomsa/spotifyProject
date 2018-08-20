@@ -6,11 +6,6 @@ var cookieParser = require('cookie-parser');
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('client.properties');
 
-//  most of this was copied from the example, not working yet. gonna be messing 
-//  around with it
-
-// update: not crashing, gonna try redirecting to display user's data
-
 var client_id = properties.get('client.id'); // Your client id
 var client_secret = properties.get('client.secret'); // Your secret
 var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
@@ -56,8 +51,6 @@ router.get('/login', function (req, res, next) {
       redirect_uri: redirect_uri,
       state: state
     }));
-  // this causes an error for some reason
-  // res.render('login');
 });
 
 

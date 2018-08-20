@@ -37,6 +37,7 @@ router.get('/', function (req, res, next) {
       song_title: stringToWikiFormat(req.query.song_name), 
       artist: stringToWikiFormat(req.query.artist),
       album: stringToWikiFormat(req.query.album)
+      // album: stringToWikiFormat('abcd e')
     });  
   });
 
