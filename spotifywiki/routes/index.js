@@ -10,7 +10,7 @@ var client_id = properties.get('client.id'); // Your client id
 var client_secret = properties.get('client.secret'); // Your secret
 var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
 
-console.log(client_id);
+// console.log(client_id);
 
 //  generate random string function used from publically available
 //  source code of spotify web-api-auth-examples in the authorization

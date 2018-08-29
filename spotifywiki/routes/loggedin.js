@@ -31,13 +31,24 @@ function stringToWikiFormat(s) {
   return s;
 }
 
+
+
 router.get('/', function (req, res, next) {
+
+  var wikirequest = {
+    url: 'https://en.wikipedia.org/api/rest_v1/page/html/' + stringToWikiFormat(req.query.song_name),
+    json: true
+  };
+  request.get(wikirequest).then(function(wikibody){
+    console.log(wikibody);
+  })
+
     res.render('login', { 
       name: stringToWikiFormat(req.query.user_name), 
       song_title: stringToWikiFormat(req.query.song_name), 
       artist: stringToWikiFormat(req.query.artist),
-      album: stringToWikiFormat(req.query.album)
-      // album: stringToWikiFormat('abcd e')
+      album: wikirequest
+      // album: stringToWikiFormat(req.query.album)
     });  
   });
 
