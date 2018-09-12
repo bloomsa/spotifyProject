@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('client.properties');
 var wikipedia = require('node-wikipedia');
-var fastHTML = require('fast-html-parser');
+var fastHTML = require('fast-html-parser'); // won't need if we use html2pug to translate the response
+var html2pug = require('html2pug');
 
 
 // i'm thinking all of the wikipedia queries will go in the 
@@ -14,12 +15,10 @@ var fastHTML = require('fast-html-parser');
 // in the login pug page
 
 
-// function to convert the song title, artist, etc strings
+// simple function to convert the song title, artist, etc strings
 // obtained from spotify into the correct format 
 function stringToWikiFormat(s) {
-  // works correctly, might still have some edge cases i haven't thought of
   s = s.charAt(0).toUpperCase() + s.substr(1); 
-
   for(var i = 1; i < s.length; i++){
     if(s.charAt(i) == ' ') {
       s = s.substr(0,i) + '_' + s.charAt(i+1).toUpperCase() + s.substr(i+2);
@@ -45,6 +44,7 @@ router.get('/', function (req, res, next) {
     // structured information on the page for Diane Young (wikilinks, references, categories, etc.)
     // var root = fastHtml.parse(response.text);
     // console.log(root.querySelector('#Personnel'));
+    // res.render(html2pug(response.text['*']));
     console.log(response);
   });
 
