@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('client.properties');
 var wikipedia = require('node-wikipedia');
-var fastHTML = require('fast-html-parser'); // won't need if we use html2pug to translate the response
-var html2pug = require('html2pug');
 
 
 // i'm thinking all of the wikipedia queries will go in the 
@@ -31,19 +29,8 @@ function stringToWikiFormat(s) {
 
 router.get('/', function (req, res, next) {
 
-  // var wikirequest = {
-  //   url: 'https://en.wikipedia.org/api/rest_v1/page/html/' + stringToWikiFormat(req.query.song_name),
-  //   json: true
-  // };
-  // request.get(wikirequest).then(function(wikibody){
-  //   var root = fastHTML.parse(wikibody);
-  //   console.log(root.querySelector('#1'));
-  // })
-
-  wikipedia.page.data("Diane_Young", { content: true }, function (response) {
+  wikipedia.page.data(stringToWikiFormat(req.query.song_name), { content: true }, function (response) {
     // structured information on the page for Diane Young (wikilinks, references, categories, etc.)
-    // var root = fastHtml.parse(response.text);
-    // console.log(root.querySelector('#Personnel'));
     res.render("login", {text: response.text['*']});
     console.log(response);
   });
