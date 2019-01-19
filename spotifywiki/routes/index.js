@@ -121,7 +121,7 @@ router.get('/callback', function (req, res) {
           request.get(optionsCurrentlyPlaying).then(function (cBody, err2) {//Inisde of the anonymous function we do our second get request
             if (cBody) {
               //for testing purposes 
-              console.log(cBody);
+              // console.log(cBody);
               // res.render('login', { title: 'spotipedia (name in progress)', user: userBodyParam, display: cBody });
               res.redirect('/loggedin?' + 
                 querystring.stringify ({

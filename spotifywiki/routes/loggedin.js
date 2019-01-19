@@ -30,19 +30,27 @@ function stringToWikiFormat(s) {
 router.get('/', function (req, res, next) {
 
   wikipedia.page.data(stringToWikiFormat(req.query.song_name), { content: true }, function (response) {
-    // structured information on the page for Diane Young (wikilinks, references, categories, etc.)
-    res.render("login", {text: response.text['*']});
-    console.log(response);
+    // structured information on the page for a song (wikilinks, references, categories, etc.)
+    // if(response.status != 200) {
+    //   res.render('login', {
+    //     name: stringToWikiFormat(req.query.user_name),
+    //     song_title: stringToWikiFormat(req.query.song_name),
+    //     artist: stringToWikiFormat(req.query.artist),
+    //     album: stringToWikiFormat(req.query.album)
+    //   }); 
+    // } else {
+      // console.log("status: " + response.status);
+    if(response == undefined) {
+      res.render("login", { text: "no wikipedia page exists for current song" });
+    }
+    else {
+      res.render("login", { text: response.text['*'] });
+    }
+      // console.log(response);
+    // }
+    // console.log(response);
   });
 
-  /*
-    res.render('login', { 
-      name: stringToWikiFormat(req.query.user_name), 
-      song_title: stringToWikiFormat(req.query.song_name), 
-      artist: stringToWikiFormat(req.query.artist),
-      album: stringToWikiFormat(req.query.album)
-    });  
-    */
 });
 
 
