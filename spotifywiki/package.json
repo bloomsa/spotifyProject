@@ -7,21 +7,21 @@
     "devstart": "nodemon .bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
+    "express": "^4.16.4",
     "fast-html-parser": "^1.0.1",
     "html2pug": "^2.0.1",
     "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
+    "morgan": "^1.9.1",
     "node-wikipedia": "0.0.2",
-    "npm": "^6.1.0",
+    "npm": "^6.9.0",
     "properties-reader": "0.0.16",
     "pug": "2.0.0-beta11",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.19.1"
   }
 }
