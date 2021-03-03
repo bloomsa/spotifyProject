@@ -17,7 +17,7 @@
     "node-wikipedia": "0.0.2",
     "npm": "^6.9.0",
     "properties-reader": "0.0.16",
-    "pug": "2.0.0-beta11",
+    "pug": "3.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
